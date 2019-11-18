@@ -54,8 +54,6 @@ public class Admin {
 		super();
 	}
 
-	
-
 	public Admin(UUID adminID, @NotEmpty @Size(max = 50) @Email String email,
 			@NotEmpty @Size(max = 50) String firstName, @NotEmpty @Size(max = 50) String lastName,
 			boolean accountStatus) {
@@ -66,8 +64,6 @@ public class Admin {
 		this.lastName = lastName;
 		this.accountStatus = accountStatus;
 	}
-
-
 
 	public UUID getAdminID() {
 		return adminID;
