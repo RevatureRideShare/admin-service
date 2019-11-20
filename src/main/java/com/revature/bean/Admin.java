@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
 public class Admin {
 	
 	@Id
-	@SequenceGenerator(name="AI_SEQ", sequenceName="admin_id_seq")
+	@SequenceGenerator(name="AI_SEQ", sequenceName="admin_id_seq", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "AI_SEQ")
 	@Column(name="admin_id")
 	private UUID adminID;
