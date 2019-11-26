@@ -1,7 +1,7 @@
-package com.controller;
+package com.revature.controller;
 
 import com.revature.bean.Admin;
-import com.service.AdminService;
+import com.revature.service.AdminService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

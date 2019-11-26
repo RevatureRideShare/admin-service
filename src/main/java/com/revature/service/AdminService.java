@@ -1,4 +1,4 @@
-package com.service;
+package com.revature.service;
 
 import com.revature.bean.Admin;
 import com.revature.repo.AdminRepo;
