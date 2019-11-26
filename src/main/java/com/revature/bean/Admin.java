@@ -1,6 +1,5 @@
 package com.revature.bean;
 
-import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +30,7 @@ public class Admin {
   @SequenceGenerator(name = "AI_SEQ", sequenceName = "admin_id_seq", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AI_SEQ")
   @Column(name = "admin_id")
-  private UUID adminID;
+  private int adminID;
 
   @Column(name = "email")
   @NotEmpty
@@ -65,7 +64,7 @@ public class Admin {
    * @param lastName an admins last name
    * @param accountStatus determines if active or inactive
    */
-  public Admin(UUID adminID, @NotEmpty @Size(max = 50) @Email String email,
+  public Admin(int adminID, @NotEmpty @Size(max = 50) @Email String email,
       @NotEmpty @Size(max = 50) String firstName, @NotEmpty @Size(max = 50) String lastName,
       boolean accountStatus) {
     super();
@@ -76,11 +75,11 @@ public class Admin {
     this.accountStatus = accountStatus;
   }
 
-  public UUID getAdminID() {
+  public int getAdminID() {
     return adminID;
   }
 
-  public void setAdminID(UUID adminID) {
+  public void setAdminID(int adminID) {
     this.adminID = adminID;
   }
 
@@ -121,7 +120,7 @@ public class Admin {
     final int prime = 31;
     int result = 1;
     result = prime * result + (accountStatus ? 1231 : 1237);
-    result = prime * result + ((adminID == null) ? 0 : adminID.hashCode());
+    result = prime * result + adminID;
     result = prime * result + ((email == null) ? 0 : email.hashCode());
     result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
     result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
@@ -130,47 +129,32 @@ public class Admin {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    if (getClass() != obj.getClass()) {
+    if (getClass() != obj.getClass())
       return false;
-    }
     Admin other = (Admin) obj;
-    if (accountStatus != other.accountStatus) {
+    if (accountStatus != other.accountStatus)
       return false;
-    }
-    if (adminID == null) {
-      if (other.adminID != null) {
-        return false;
-      }
-    } else if (!adminID.equals(other.adminID)) {
+    if (adminID != other.adminID)
       return false;
-    }
     if (email == null) {
-      if (other.email != null) {
+      if (other.email != null)
         return false;
-      }
-    } else if (!email.equals(other.email)) {
+    } else if (!email.equals(other.email))
       return false;
-    }
     if (firstName == null) {
-      if (other.firstName != null) {
+      if (other.firstName != null)
         return false;
-      }
-    } else if (!firstName.equals(other.firstName)) {
+    } else if (!firstName.equals(other.firstName))
       return false;
-    }
     if (lastName == null) {
-      if (other.lastName != null) {
+      if (other.lastName != null)
         return false;
-      }
-    } else if (!lastName.equals(other.lastName)) {
+    } else if (!lastName.equals(other.lastName))
       return false;
-    }
     return true;
   }
 
@@ -179,6 +163,5 @@ public class Admin {
     return "Admin [adminID=" + adminID + ", email=" + email + ", firstName=" + firstName
         + ", lastName=" + lastName + ", accountStatus=" + accountStatus + "]";
   }
-
 
 }
