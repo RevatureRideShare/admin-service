@@ -1,22 +1,18 @@
 package com.revature.service;
 
 import com.revature.bean.Admin;
-import com.revature.repo.AdminRepo;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
-@Service
-public class AdminService {
+public interface AdminService {
+  public Admin createAdmin(Admin admin);
 
-  private AdminRepo adminRepo;
+  public void deleteAdmin(Admin admin);
 
-  public AdminService(AdminRepo adminRepo) {
-    this.adminRepo = adminRepo;
-  }
+  public Admin updateAdmin(Admin admin);
 
-  public Admin createAdmin(Admin admin) {
-    Admin returnAdmin = adminRepo.save(admin);
-    return returnAdmin;
-  }
+  public Optional<Admin> getAdmin(int adminID);
 
+  public List<Admin> getAllAdmins();
 }

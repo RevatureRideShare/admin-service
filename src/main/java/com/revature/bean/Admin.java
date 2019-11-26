@@ -12,11 +12,11 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 /**
- * Authors: Jane Shin, Erik Haklar, Roberto Rodriguez This object is used to hold an admin user, its
- * fields consist of: adminID: this is used to identify an admin based of ID, useful for grabbing
- * admin objects email: a field that will be used for credentials validation firstName: a field used
- * to hold the admins first name lastName: a field used to hold the admins last name accountStatus:
- * a boolean value used to determine if the admin account is inactive or active.
+ * This object is used to hold an admin user, its fields consist of: adminID: this is used to
+ * identify an admin based of ID, useful for grabbing admin objects; email: a field that will be
+ * used for credentials validation; firstName: a field used to hold the admin's first name;
+ * lastName: a field used to hold the admin's last name; accountStatus: a boolean value used to
+ * determine if the admin account is inactive or active.
  * 
  * @author Jane Shin
  * @author Erik Haklar
@@ -60,8 +60,8 @@ public class Admin {
    * 
    * @param adminID is the ID that references specific object
    * @param email is a unique email tied to the a specific object
-   * @param firstName an admins first name
-   * @param lastName an admins last name
+   * @param firstName an admin's first name
+   * @param lastName an admin's last name
    * @param accountStatus determines if active or inactive
    */
   public Admin(int adminID, @NotEmpty @Size(max = 50) @Email String email,
