@@ -5,9 +5,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.revature.bean.Admin;
+import com.revature.exception.DeleteNonexistentException;
+import com.revature.exception.UpdateNonexistentException;
 import com.revature.repo.AdminRepo;
 import com.revature.service.AdminServiceImpl;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.ConstraintViolationException;
@@ -124,7 +128,91 @@ class AdminServiceImplTest {
 
   @Test
   void testGetAllAdmins() {
-
+    List<Admin> existingList = new LinkedList<>();
+    existingList.add(existingAdmin);
+    when(adminRepo.findAll()).thenReturn(existingList);
+    assertEquals(existingList, adminServiceImpl.getAllAdmins());
+    verify(adminRepo).findAll();
   }
 
+  @Test
+  void testDeleteNewAdmin() {
+    when(adminRepo.findById(newAdmin.getAdminID())).thenReturn(Optional.empty());
+    Assertions.assertThrows(DeleteNonexistentException.class, () -> {
+      adminServiceImpl.deleteAdmin(newAdmin);
+    });
+  }
+
+  @Test
+  void testDeleteExistingAdmin() {
+    when(adminRepo.findById(existingAdmin.getAdminID())).thenReturn(Optional.of(existingAdmin));
+    List<Admin> existingList = adminServiceImpl.getAllAdmins();
+    adminServiceImpl.deleteAdmin(existingAdmin);
+    List<Admin> afterDeletingList = adminServiceImpl.getAllAdmins();
+    existingList.remove(existingAdmin);
+
+    assertEquals(existingList, afterDeletingList);
+    verify(adminRepo).delete(existingAdmin);
+  }
+
+  @Test
+  void testDeleteNullAdmin() {
+    Assertions.assertThrows(NullPointerException.class, () -> {
+      adminServiceImpl.deleteAdmin(nullAdmin);
+    });
+  }
+
+  @Test
+  void testDeleteBadFormatAdmin() {
+    when(adminRepo.findById(badFormatAdmin.getAdminID())).thenReturn(Optional.empty());
+    Assertions.assertThrows(DeleteNonexistentException.class, () -> {
+      adminServiceImpl.deleteAdmin(badFormatAdmin);
+    });
+  }
+
+  @Test
+  void testUpdateNewAdmin() {
+    when(adminRepo.findById(newAdmin.getAdminID())).thenReturn(Optional.empty());
+
+    Assertions.assertThrows(UpdateNonexistentException.class, () -> {
+      adminServiceImpl.updateAdmin(newAdmin);
+    });
+  }
+
+  @Test
+  void testUpdateExistingAdmin() {
+    Admin updatedExistingAdmin =
+        new Admin(existingAdmin.getAdminID(), "updatedadmin@gmail.com", "UFirst", "ULast", true);
+
+    when(adminRepo.findById(updatedExistingAdmin.getAdminID()))
+        .thenReturn(Optional.of(existingAdmin));
+
+    when(adminRepo.save(updatedExistingAdmin)).thenReturn(updatedExistingAdmin);
+
+    assertEquals(updatedExistingAdmin, adminServiceImpl.updateAdmin(updatedExistingAdmin));
+
+    verify(adminRepo).save(updatedExistingAdmin);
+  }
+
+  @Test
+  void testUpdateNullAdmin() {
+    Assertions.assertThrows(NullPointerException.class, () -> {
+      adminServiceImpl.updateAdmin(nullAdmin);
+    });
+  }
+
+  @Test
+  void testUpdateBadFormatAdmin() {
+    Admin updatedBadAdmin = new Admin(existingAdmin.getAdminID(), "", "", "", true);
+
+    when(adminRepo.findById(updatedBadAdmin.getAdminID())).thenReturn(Optional.of(existingAdmin));
+
+    when(adminRepo.save(updatedBadAdmin)).thenThrow(ConstraintViolationException.class);
+
+    Assertions.assertThrows(ConstraintViolationException.class, () -> {
+      adminServiceImpl.updateAdmin(updatedBadAdmin);
+    });
+
+    verify(adminRepo).save(updatedBadAdmin);
+  }
 }
