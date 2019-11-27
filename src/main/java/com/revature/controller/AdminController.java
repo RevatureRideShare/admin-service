@@ -33,10 +33,9 @@ public class AdminController {
     }
   }
 
-  @GetMapping("/test")
+  @GetMapping("/test/public")
   public String test() {
-    System.out.println("Wow it worked!!!!!");
-    return "Success";
+    return "Success - Admin Service";
   }
 
 }

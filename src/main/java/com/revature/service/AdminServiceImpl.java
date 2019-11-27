@@ -62,4 +62,23 @@ public class AdminServiceImpl implements AdminService {
   public List<Admin> getAllAdmins() {
     return adminRepo.findAll();
   }
+
+  /*
+   * public void deleteUser(User user) {
+   * 
+   * }
+   */
+
+  /*
+   * public void setAccountStatus(int userID, boolean accountStatus) {
+   * 
+   * }
+   */
+
+  /*
+   * public void setRole(int userID, Role role) {
+   * 
+   * }
+   */
+
 }
