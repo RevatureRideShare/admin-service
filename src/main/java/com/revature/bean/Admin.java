@@ -33,19 +33,19 @@ public class Admin {
   private int adminID;
 
   @Column(name = "email")
-  @NotEmpty
-  @Size(max = 50)
-  @Email
+  @NotEmpty(message = "Email must not be empty!")
+  @Size(max = 50, message = "Email must not exceed 50 chars!")
+  @Email(message = "Field must be of type email!")
   private String email;
 
   @Column(name = "first_name")
-  @NotEmpty
-  @Size(max = 50)
+  @NotEmpty(message = "First name must not be empty!")
+  @Size(max = 50, message = "First name must not exceed 50 chars!")
   private String firstName;
 
   @Column(name = "last_name")
-  @NotEmpty
-  @Size(max = 50)
+  @NotEmpty(message = "Last Name must not be empty!")
+  @Size(max = 50, message = "last Name must not exceed 50 chars!")
   private String lastName;
 
   @Column(name = "account_status")
