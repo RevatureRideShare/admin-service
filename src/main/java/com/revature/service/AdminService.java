@@ -17,6 +17,9 @@ public interface AdminService {
   public List<Admin> getAllAdmins();
 
   /*
+   * Will uncomment these methods when services communicate.
+   */
+  /*
    * public void deleteUser(User user);
    * 
    * public void setAccountStatus(int userID, boolean accountStatus);

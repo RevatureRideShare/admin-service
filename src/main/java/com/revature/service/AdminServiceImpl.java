@@ -98,6 +98,10 @@ public class AdminServiceImpl implements AdminService {
   }
 
   /*
+   * Will uncomment these methods when services communicate.
+   */
+
+  /*
    * public void deleteUser(User user) {
    * 
    * }
