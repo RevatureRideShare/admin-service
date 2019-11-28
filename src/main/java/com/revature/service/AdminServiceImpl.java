@@ -13,6 +13,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionSystemException;
 
 /**
  * This class contains all of the business logic for Admin, as well as calling the appropriate
@@ -37,14 +38,23 @@ public class AdminServiceImpl implements AdminService {
    * already exists in the database, then this method throws a DuplicateKeyException. If the Admin
    * passed in is null, then the method should throw a NullPointerException because you cannot use
    * getAdminID() on a null object. If any of the bean validation on the Admin passed in is
-   * violated, then the method should expect a ConstraintViolationException from AdminRepo.
+   * violated, then the method should throw a ConstraintViolationException.
    */
   @Override
-  public Admin createAdmin(Admin admin) throws NullPointerException, ConstraintViolationException {
+  public Admin createAdmin(Admin admin) throws NullPointerException {
     if (getAdmin(admin.getAdminID()).isPresent()) {
       throw new DuplicateKeyException("Object already exists in database");
     } else {
-      return adminRepo.save(admin);
+      try {
+        return adminRepo.save(admin);
+      } catch (TransactionSystemException t) {
+        Throwable myT = t.getCause().getCause();
+
+        if (myT instanceof ConstraintViolationException) {
+          throw ((ConstraintViolationException) myT);
+        }
+        throw t;
+      }
     }
   }
 
@@ -64,18 +74,27 @@ public class AdminServiceImpl implements AdminService {
   }
 
   /**
-   * This method is used for updating an Admin by taking in a Admin object. If the id/primary key
+   * This method is used for updating an Admin by taking in an Admin object. If the id/primary key
    * does not exist in the database, then this method throws a custom UpdateNonexistentException. If
    * the Admin passed in is null, then the method should throw a NullPointerException because you
    * cannot use getAdminID() on a null object. If any of the bean validation on the Admin passed in
-   * is violated, then the method should expect a ConstraintViolationException from AdminRepo.
+   * is violated, then the method should throw a ConstraintViolationException.
    */
   @Override
-  public Admin updateAdmin(Admin admin) throws NullPointerException, ConstraintViolationException {
+  public Admin updateAdmin(Admin admin) throws NullPointerException {
     if (!getAdmin(admin.getAdminID()).isPresent()) {
       throw new UpdateNonexistentException(admin + " does not exist and cannot be updated");
     } else {
-      return adminRepo.save(admin);
+      try {
+        return adminRepo.save(admin);
+      } catch (TransactionSystemException t) {
+        Throwable myT = t.getCause().getCause();
+
+        if (myT instanceof ConstraintViolationException) {
+          throw ((ConstraintViolationException) myT);
+        }
+        throw t;
+      }
     }
   }
 
