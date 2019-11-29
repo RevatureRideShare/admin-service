@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.ConstraintViolationException;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -22,7 +24,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.TransactionSystemException;
 
 @SpringBootTest
 class AdminServiceImplIntegrationTest {
@@ -156,49 +157,49 @@ class AdminServiceImplIntegrationTest {
 
   @Test
   void testCreateBadFormatEmptyEmailAdmin() {
-    assertThrows(TransactionSystemException.class, () -> {
+    assertThrows(ConstraintViolationException.class, () -> {
       adminServiceImpl.createAdmin(badFormatEmptyEmailAdmin);
     });
   }
 
   @Test
   void testCreateBadFormatMaxSizeEmailAdmin() {
-    assertThrows(TransactionSystemException.class, () -> {
+    assertThrows(ConstraintViolationException.class, () -> {
       adminServiceImpl.createAdmin(badFormatMaxSizeEmailAdmin);
     });
   }
 
   @Test
   void testCreateBadFormatNotAnEmailAdmin() {
-    assertThrows(TransactionSystemException.class, () -> {
+    assertThrows(ConstraintViolationException.class, () -> {
       adminServiceImpl.createAdmin(badFormatNotEmailAdmin);
     });
   }
 
   @Test
   void testCreateBadFormatEmptyFirstNameAdmin() {
-    assertThrows(TransactionSystemException.class, () -> {
+    assertThrows(ConstraintViolationException.class, () -> {
       adminServiceImpl.createAdmin(badFormatEmptyFirstNameAdmin);
     });
   }
 
   @Test
   void testCreateBadFormatMaxSizeFirstNameAdmin() {
-    assertThrows(TransactionSystemException.class, () -> {
+    assertThrows(ConstraintViolationException.class, () -> {
       adminServiceImpl.createAdmin(badFormatMaxSizeFirstNameAdmin);
     });
   }
 
   @Test
   void testCreateBadFormatEmptyLastNameAdmin() {
-    assertThrows(TransactionSystemException.class, () -> {
+    assertThrows(ConstraintViolationException.class, () -> {
       adminServiceImpl.createAdmin(badFormatEmptyLastNameAdmin);
     });
   }
 
   @Test
   void testCreateBadFormatMaxSizeLastNameAdmin() {
-    assertThrows(TransactionSystemException.class, () -> {
+    assertThrows(ConstraintViolationException.class, () -> {
       adminServiceImpl.createAdmin(badFormatMaxSizeLastNameAdmin);
     });
   }
