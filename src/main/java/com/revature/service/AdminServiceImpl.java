@@ -116,26 +116,4 @@ public class AdminServiceImpl implements AdminService {
     return adminRepo.findAll();
   }
 
-  /*
-   * Will uncomment these methods when services communicate.
-   */
-
-  /*
-   * public void deleteUser(User user) {
-   * 
-   * }
-   */
-
-  /*
-   * public void setAccountStatus(int userID, boolean accountStatus) {
-   * 
-   * }
-   */
-
-  /*
-   * public void setRole(int userID, Role role) {
-   * 
-   * }
-   */
-
 }

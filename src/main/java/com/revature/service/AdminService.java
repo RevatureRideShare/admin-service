@@ -15,15 +15,4 @@ public interface AdminService {
   public Optional<Admin> getAdmin(int adminID);
 
   public List<Admin> getAllAdmins();
-
-  /*
-   * Will uncomment these methods when services communicate.
-   */
-  /*
-   * public void deleteUser(User user);
-   * 
-   * public void setAccountStatus(int userID, boolean accountStatus);
-   * 
-   * public void setRole(int userID, Role role);
-   */
 }

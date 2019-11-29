@@ -80,10 +80,4 @@ public class AdminController {
     return new ResponseEntity<>(allAdmins, HttpStatus.OK);
   }
 
-  /*
-   * Leaving this blank until we figure out AMQ
-   * 
-   * @DeleteMapping("/user/{email}") public ResponseEntity<?> deleteUser(@PathVariable("email")
-   * String email) { return null; }
-   */
 }
