@@ -130,4 +130,24 @@ class AdminControllerTest {
     mvc.perform(MockMvcRequestBuilders.get("/admin")).andExpect(status().isOk())
         .andExpect(content().json(new ObjectMapper().writeValueAsString(existingList)));
   }
+
+  @Test
+  void testGetNewAdminByEmail() throws Exception {
+    when(adminService.getAdminByEmail(newAdmin.getEmail())).thenReturn(null);
+    mvc.perform(MockMvcRequestBuilders.get("/admin/{email}", newAdmin.getEmail()))
+        .andExpect(status().isNoContent());
+  }
+
+  /**
+   * This one is having issues because it is truncating the email address from the dot and after.
+   * 
+   */
+  @Test
+  void testGetExistingAdminByEmail() throws Exception {
+    when(adminService.getAdminByEmail(existingAdmin.getEmail())).thenReturn(existingAdmin);
+
+    mvc.perform(MockMvcRequestBuilders.get("/admin/{email}", existingAdmin.getEmail()))
+        .andExpect(status().isOk())
+        .andExpect(content().json(new ObjectMapper().writeValueAsString(existingAdmin)));
+  }
 }

@@ -68,19 +68,6 @@ public class AdminController {
     }
   }
 
-  @GetMapping("/admin/{email}")
-  public ResponseEntity<?> getAdminByEmail(@PathVariable("email") String email) {
-    Admin admin = adminService.getAdminByEmail(email);
-
-    System.out.println(admin);
-
-    if (admin != null) {
-      return new ResponseEntity<>(admin, HttpStatus.OK);
-    } else {
-      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-  }
-
   /**
    * This method is a RESTful endpoint that returns all of the admins in the database. It returns a
    * ResponseEntity with that list and HttpStatus.OK.
@@ -93,5 +80,17 @@ public class AdminController {
 
     return new ResponseEntity<>(allAdmins, HttpStatus.OK);
   }
+
+  @GetMapping("/admin/{email}")
+  public ResponseEntity<?> getAdminByEmail(@PathVariable("email") String email) {
+    Admin admin = adminService.getAdminByEmail(email);
+
+    if (admin != null) {
+      return new ResponseEntity<>(admin, HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+  }
+
 
 }
