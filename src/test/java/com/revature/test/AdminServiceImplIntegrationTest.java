@@ -214,4 +214,10 @@ class AdminServiceImplIntegrationTest {
       adminServiceImpl.createAdmin(newAdminWithExistingEmail);
     });
   }
+
+  @Test
+  @Sql("admin-script.sql")
+  void testCreateGetAdminByEmail() {
+    assertEquals(adminServiceImpl.getAdminByEmail(existingAdmin.getEmail()), existingAdmin);
+  }
 }
