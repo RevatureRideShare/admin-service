@@ -49,11 +49,11 @@ pipeline {
         
   		stage ('Jacoco') {
   			steps{
-                jacoco( 
-                    execPattern: 'target/site/jacoco/jacoco.xml',
-                    classPattern: 'target/classes',
-                    sourcePattern: 'src/main/java',
-                    exclusionPattern: 'src/main/java/com/revature/bean/*,src/main/javacom/revature/repo/*,src/main/java/com/revature/exception/*'
+                jacoco(
+                    // execPattern: 'target/site/jacoco/jacoco.xml',
+                    // classPattern: 'target/classes',
+                    // sourcePattern: 'src/main/java',
+                    // exclusionPattern: 'src/main/java/com/revature/bean/*,src/main/javacom/revature/repo/*,src/main/java/com/revature/exception/*'
                 )
             }
   		}
