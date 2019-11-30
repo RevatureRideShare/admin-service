@@ -50,6 +50,8 @@ pipeline {
   		stage ('Jacoco') {
   			steps{
                 jacoco(
+                    maximumLineCoverage: '100',
+                    minimumLineCoverage: '100'
                     // execPattern: 'target/site/jacoco/jacoco.xml',
                     // classPattern: 'target/classes',
                     // sourcePattern: 'src/main/java',
