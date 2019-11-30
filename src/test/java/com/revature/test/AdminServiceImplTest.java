@@ -98,14 +98,14 @@ class AdminServiceImplTest {
   }
 
   @Test
-  void testGetNewAdmin() {
+  void testGetNewAdminByID() {
     when(adminRepo.findById(newAdmin.getAdminID())).thenReturn(Optional.empty());
     assertEquals(Optional.empty(), adminServiceImpl.getAdminByID(newAdmin.getAdminID()));
     verify(adminRepo).findById(newAdmin.getAdminID());
   }
 
   @Test
-  void testGetExistingAdmin() {
+  void testGetExistingAdminByID() {
     when(adminRepo.findById(existingAdmin.getAdminID())).thenReturn(Optional.of(existingAdmin));
     assertEquals(Optional.of(existingAdmin),
         adminServiceImpl.getAdminByID(existingAdmin.getAdminID()));
@@ -113,7 +113,7 @@ class AdminServiceImplTest {
   }
 
   @Test
-  void testGetNullAdmin() {
+  void testGetNullAdminByID() {
     when(adminRepo.findById(null)).thenThrow(IllegalArgumentException.class);
     Assertions.assertThrows(NullPointerException.class, () -> {
       adminServiceImpl.getAdminByID(nullAdmin.getAdminID());
@@ -121,10 +121,39 @@ class AdminServiceImplTest {
   }
 
   @Test
-  void testGetBadFormatAdmin() {
+  void testGetBadFormatAdminByID() {
     when(adminRepo.findById(badFormatAdmin.getAdminID())).thenReturn(Optional.empty());
     assertEquals(Optional.empty(), adminServiceImpl.getAdminByID(badFormatAdmin.getAdminID()));
     verify(adminRepo).findById(badFormatAdmin.getAdminID());
+  }
+
+  @Test
+  void testGetNewAdminByEmail() {
+    when(adminRepo.findByEmail(newAdmin.getEmail())).thenReturn(null);
+    assertEquals(null, adminServiceImpl.getAdminByEmail(newAdmin.getEmail()));
+    verify(adminRepo).findByEmail(newAdmin.getEmail());
+  }
+
+  @Test
+  void testGetExistingAdminByEmail() {
+    when(adminRepo.findByEmail(existingAdmin.getEmail())).thenReturn(existingAdmin);
+    assertEquals(existingAdmin, adminServiceImpl.getAdminByEmail(existingAdmin.getEmail()));
+    verify(adminRepo).findByEmail(existingAdmin.getEmail());
+  }
+
+  @Test
+  void testGetNullAdminByEmail() {
+    when(adminRepo.findByEmail(null)).thenThrow(NullPointerException.class);
+    Assertions.assertThrows(NullPointerException.class, () -> {
+      adminServiceImpl.getAdminByEmail(nullAdmin.getEmail());
+    });
+  }
+
+  @Test
+  void testGetBadFormatAdminByEmail() {
+    when(adminRepo.findByEmail(badFormatAdmin.getEmail())).thenReturn(null);
+    assertEquals(null, adminServiceImpl.getAdminByEmail(badFormatAdmin.getEmail()));
+    verify(adminRepo).findByEmail(badFormatAdmin.getEmail());
   }
 
   @Test
