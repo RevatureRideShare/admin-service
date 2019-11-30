@@ -147,7 +147,6 @@
 					<configLocation>google_checks.xml</configLocation>
 				</configuration>
 			</plugin>
-
 			<!-- jacoco fun stuff -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
@@ -177,7 +176,6 @@
 				</executions>
 			</plugin>
 			<!-- jacoco fun stuff -->
-
 		</plugins>
 	</build>
 
