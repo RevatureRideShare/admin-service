@@ -68,6 +68,13 @@ public class AdminController {
     }
   }
 
+  /**
+   * Endpoint for getting a single admin based off of their email.
+   * 
+   * @param email Email of the admin.
+   * @return Returns a response entity with either an ok or a no content Http status depending on
+   *         the results.
+   */
   @GetMapping("/admin/{email}")
   public ResponseEntity<?> getAdminByEmail(@PathVariable("email") String email) {
     Admin admin = adminService.getAdminByEmail(email);
