@@ -100,14 +100,15 @@ class AdminServiceImplTest {
   @Test
   void testGetNewAdmin() {
     when(adminRepo.findById(newAdmin.getAdminID())).thenReturn(Optional.empty());
-    assertEquals(Optional.empty(), adminServiceImpl.getAdmin(newAdmin.getAdminID()));
+    assertEquals(Optional.empty(), adminServiceImpl.getAdminByID(newAdmin.getAdminID()));
     verify(adminRepo).findById(newAdmin.getAdminID());
   }
 
   @Test
   void testGetExistingAdmin() {
     when(adminRepo.findById(existingAdmin.getAdminID())).thenReturn(Optional.of(existingAdmin));
-    assertEquals(Optional.of(existingAdmin), adminServiceImpl.getAdmin(existingAdmin.getAdminID()));
+    assertEquals(Optional.of(existingAdmin),
+        adminServiceImpl.getAdminByID(existingAdmin.getAdminID()));
     verify(adminRepo).findById(existingAdmin.getAdminID());
   }
 
@@ -115,14 +116,14 @@ class AdminServiceImplTest {
   void testGetNullAdmin() {
     when(adminRepo.findById(null)).thenThrow(IllegalArgumentException.class);
     Assertions.assertThrows(NullPointerException.class, () -> {
-      adminServiceImpl.getAdmin(nullAdmin.getAdminID());
+      adminServiceImpl.getAdminByID(nullAdmin.getAdminID());
     });
   }
 
   @Test
   void testGetBadFormatAdmin() {
     when(adminRepo.findById(badFormatAdmin.getAdminID())).thenReturn(Optional.empty());
-    assertEquals(Optional.empty(), adminServiceImpl.getAdmin(badFormatAdmin.getAdminID()));
+    assertEquals(Optional.empty(), adminServiceImpl.getAdminByID(badFormatAdmin.getAdminID()));
     verify(adminRepo).findById(badFormatAdmin.getAdminID());
   }
 

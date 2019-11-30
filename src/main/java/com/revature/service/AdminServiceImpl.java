@@ -42,7 +42,7 @@ public class AdminServiceImpl implements AdminService {
    */
   @Override
   public Admin createAdmin(Admin admin) throws NullPointerException {
-    if (getAdmin(admin.getAdminID()).isPresent()) {
+    if (getAdminByID(admin.getAdminID()).isPresent()) {
       throw new DuplicateKeyException("Object already exists in database");
     } else {
       try {
@@ -66,7 +66,7 @@ public class AdminServiceImpl implements AdminService {
    */
   @Override
   public void deleteAdmin(Admin admin) throws NullPointerException {
-    if (!getAdmin(admin.getAdminID()).isPresent()) {
+    if (!getAdminByID(admin.getAdminID()).isPresent()) {
       throw new DeleteNonexistentException(admin + " does not exist and cannot be deleted");
     } else {
       adminRepo.delete(admin);
@@ -82,7 +82,7 @@ public class AdminServiceImpl implements AdminService {
    */
   @Override
   public Admin updateAdmin(Admin admin) throws NullPointerException {
-    if (!getAdmin(admin.getAdminID()).isPresent()) {
+    if (!getAdminByID(admin.getAdminID()).isPresent()) {
       throw new UpdateNonexistentException(admin + " does not exist and cannot be updated");
     } else {
       try {
@@ -104,7 +104,7 @@ public class AdminServiceImpl implements AdminService {
    * of that object. Otherwise, it returns an empty Optional.
    */
   @Override
-  public Optional<Admin> getAdmin(int adminID) {
+  public Optional<Admin> getAdminByID(int adminID) {
     return adminRepo.findById(adminID);
   }
 
@@ -114,6 +114,11 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public List<Admin> getAllAdmins() {
     return adminRepo.findAll();
+  }
+
+  @Override
+  public Admin getAdminByEmail(String email) {
+    return adminRepo.findByEmail(email);
   }
 
 }

@@ -12,7 +12,9 @@ public interface AdminService {
 
   public Admin updateAdmin(Admin admin) throws NullPointerException;
 
-  public Optional<Admin> getAdmin(int adminID);
+  public Optional<Admin> getAdminByID(int adminID);
+
+  public Admin getAdminByEmail(String email);
 
   public List<Admin> getAllAdmins();
 }

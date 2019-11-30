@@ -88,7 +88,8 @@ class AdminServiceImplIntegrationTest {
   @Test
   @Sql("admin-script.sql")
   void testGetExistingAdminById() {
-    assertEquals(adminServiceImpl.getAdmin(existingAdmin.getAdminID()), Optional.of(existingAdmin));
+    assertEquals(adminServiceImpl.getAdminByID(existingAdmin.getAdminID()),
+        Optional.of(existingAdmin));
   }
 
   @Test
@@ -106,7 +107,8 @@ class AdminServiceImplIntegrationTest {
   @Sql("admin-script.sql")
   void testCreateNewAdmin() {
     Admin extraNewAdmin = adminServiceImpl.createAdmin(newAdmin);
-    assertEquals(Optional.of(extraNewAdmin), adminServiceImpl.getAdmin(extraNewAdmin.getAdminID()));
+    assertEquals(Optional.of(extraNewAdmin),
+        adminServiceImpl.getAdminByID(extraNewAdmin.getAdminID()));
   }
 
   @Test
@@ -128,7 +130,7 @@ class AdminServiceImplIntegrationTest {
   @Sql("admin-script.sql")
   void testDeleteExistingAdmin() {
     adminServiceImpl.deleteAdmin(existingAdmin);
-    assertEquals(adminServiceImpl.getAdmin(existingAdmin.getAdminID()), Optional.empty());
+    assertEquals(adminServiceImpl.getAdminByID(existingAdmin.getAdminID()), Optional.empty());
   }
 
   @Test
@@ -142,9 +144,10 @@ class AdminServiceImplIntegrationTest {
   @Sql("admin-script.sql")
   void testUpdateExistingAdmin() {
     System.out.println(
-        "Current state of updatedAdmin" + adminServiceImpl.getAdmin(updatedAdmin.getAdminID()));
+        "Current state of updatedAdmin" + adminServiceImpl.getAdminByID(updatedAdmin.getAdminID()));
     adminServiceImpl.updateAdmin(changedAdmin);
-    assertEquals(adminServiceImpl.getAdmin(changedAdmin.getAdminID()), Optional.of(changedAdmin));
+    assertEquals(adminServiceImpl.getAdminByID(changedAdmin.getAdminID()),
+        Optional.of(changedAdmin));
   }
 
   @Test

@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,6 +65,19 @@ public class AdminController {
     } catch (NullPointerException n) {
       error.put("message", "Cannot pass in a null Admin object");
       return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @GetMapping("/admin/{email}")
+  public ResponseEntity<?> getAdminByEmail(@PathVariable("email") String email) {
+    Admin admin = adminService.getAdminByEmail(email);
+
+    System.out.println(admin);
+
+    if (admin != null) {
+      return new ResponseEntity<>(admin, HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
   }
 
