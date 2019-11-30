@@ -69,26 +69,6 @@ public class AdminController {
   }
 
   /**
-   * Endpoint for getting a single admin based off of their email.
-   * 
-   * @param email Email of the admin.
-   * @return Returns a response entity with either an ok or a no content Http status depending on
-   *         the results.
-   */
-  @GetMapping("/admin/{email}")
-  public ResponseEntity<?> getAdminByEmail(@PathVariable("email") String email) {
-    Admin admin = adminService.getAdminByEmail(email);
-
-    System.out.println(admin);
-
-    if (admin != null) {
-      return new ResponseEntity<>(admin, HttpStatus.OK);
-    } else {
-      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-  }
-
-  /**
    * This method is a RESTful endpoint that returns all of the admins in the database. It returns a
    * ResponseEntity with that list and HttpStatus.OK.
    * 
@@ -99,6 +79,24 @@ public class AdminController {
     List<Admin> allAdmins = adminService.getAllAdmins();
 
     return new ResponseEntity<>(allAdmins, HttpStatus.OK);
+  }
+
+  /**
+   * Endpoint for getting a single admin based off of their email.
+   * 
+   * @param email Email of the admin.
+   * @return Returns a response entity with either an ok or a no content Http status depending on
+   *         the results.
+   */
+  @GetMapping("/admin/{email}")
+  public ResponseEntity<?> getAdminByEmail(@PathVariable("email") String email) {
+    Admin admin = adminService.getAdminByEmail(email);
+
+    if (admin != null) {
+      return new ResponseEntity<>(admin, HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
   }
 
 }
