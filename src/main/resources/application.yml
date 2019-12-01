@@ -8,4 +8,4 @@ spring:
     config:
       uri: http://localhost:8888
   datasource:
-    url: postgres://ystkzprq:Z3jiUZ2pzuwX7wpCMGKHHQ2igzPpnKsl@salt.db.elephantsql.com:5432/ystkzprq
+    uri: postgres://ystkzprq:Z3jiUZ2pzuwX7wpCMGKHHQ2igzPpnKsl@salt.db.elephantsql.com:5432/ystkzprq
