@@ -19,7 +19,6 @@ import javax.validation.constraints.Size;
  * determine if the admin account is inactive or active.
  * 
  * @author Jane Shin
- * @author Erik Haklar
  * @author Roberto Rodriguez
  */
 @Entity

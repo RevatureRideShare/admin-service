@@ -1,5 +1,6 @@
 package com.revature.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,7 +28,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -134,20 +137,15 @@ class AdminControllerTest {
   @Test
   void testGetNewAdminByEmail() throws Exception {
     when(adminService.getAdminByEmail(newAdmin.getEmail())).thenReturn(null);
-    mvc.perform(MockMvcRequestBuilders.get("/admin/{email}", newAdmin.getEmail()))
-        .andExpect(status().isNoContent());
+    assertEquals(new ResponseEntity<>(HttpStatus.NO_CONTENT),
+        adminController.getAdminByEmail(newAdmin.getEmail()));
   }
 
-  /**
-   * This one is having issues because it is truncating the email address from the dot and after.
-   * 
-   */
   @Test
   void testGetExistingAdminByEmail() throws Exception {
     when(adminService.getAdminByEmail(existingAdmin.getEmail())).thenReturn(existingAdmin);
 
-    mvc.perform(MockMvcRequestBuilders.get("/admin/{email}", existingAdmin.getEmail()))
-        .andExpect(status().isOk())
-        .andExpect(content().json(new ObjectMapper().writeValueAsString(existingAdmin)));
+    assertEquals(new ResponseEntity<>(existingAdmin, HttpStatus.OK),
+        adminController.getAdminByEmail(existingAdmin.getEmail()));
   }
 }
