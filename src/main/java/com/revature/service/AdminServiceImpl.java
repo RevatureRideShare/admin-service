@@ -116,9 +116,13 @@ public class AdminServiceImpl implements AdminService {
     return adminRepo.findAll();
   }
 
+  /**
+   * This method is used for retrieving an Admin based on the Admin's email that is passed in. If an
+   * Admin with the specified email exists in the database, the method should return the Admin.
+   * Otherwise, it returns a null object.
+   */
   @Override
   public Admin getAdminByEmail(String email) {
     return adminRepo.findByEmail(email);
   }
-
 }
