@@ -20,7 +20,6 @@ import org.springframework.transaction.TransactionSystemException;
  * AdminRepo methods. It implements the AdminService interface.
  * 
  * @author Jane Shin
- * @author Erik Haklar
  * @author Roberto Rodriguez
  */
 @Service

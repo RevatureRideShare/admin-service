@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
  * AdminService methods.
  * 
  * @author Jane Shin
- * @author Erik Haklar
  * @author Roberto Rodriguez
  */
 @RestController
