@@ -1,6 +1,5 @@
 package com.revature.bean;
 
-import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,14 +12,13 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 /**
- * Authors: Jane Shin, Erik Haklar, Roberto Rodriguez This object is used to hold an admin user, its
- * fields consist of: adminID: this is used to identify an admin based of ID, useful for grabbing
- * admin objects email: a field that will be used for credentials validation firstName: a field used
- * to hold the admins first name lastName: a field used to hold the admins last name accountStatus:
- * a boolean value used to determine if the admin account is inactive or active.
+ * This object is used to hold an admin user, its fields consist of: adminID: this is used to
+ * identify an admin based of ID, useful for grabbing admin objects; email: a field that will be
+ * used for credentials validation; firstName: a field used to hold the admin's first name;
+ * lastName: a field used to hold the admin's last name; accountStatus: a boolean value used to
+ * determine if the admin account is inactive or active.
  * 
  * @author Jane Shin
- * @author Erik Haklar
  * @author Roberto Rodriguez
  */
 @Entity
@@ -31,22 +29,22 @@ public class Admin {
   @SequenceGenerator(name = "AI_SEQ", sequenceName = "admin_id_seq", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AI_SEQ")
   @Column(name = "admin_id")
-  private UUID adminID;
+  private int adminID;
 
   @Column(name = "email")
-  @NotEmpty
-  @Size(max = 50)
-  @Email
+  @NotEmpty(message = "Email must not be empty!")
+  @Size(max = 50, message = "Email must not exceed 50 chars!")
+  @Email(message = "Field must be of type email!")
   private String email;
 
   @Column(name = "first_name")
-  @NotEmpty
-  @Size(max = 50)
+  @NotEmpty(message = "First name must not be empty!")
+  @Size(max = 50, message = "First name must not exceed 50 chars!")
   private String firstName;
 
   @Column(name = "last_name")
-  @NotEmpty
-  @Size(max = 50)
+  @NotEmpty(message = "Last Name must not be empty!")
+  @Size(max = 50, message = "last Name must not exceed 50 chars!")
   private String lastName;
 
   @Column(name = "account_status")
@@ -61,11 +59,11 @@ public class Admin {
    * 
    * @param adminID is the ID that references specific object
    * @param email is a unique email tied to the a specific object
-   * @param firstName an admins first name
-   * @param lastName an admins last name
+   * @param firstName an admin's first name
+   * @param lastName an admin's last name
    * @param accountStatus determines if active or inactive
    */
-  public Admin(UUID adminID, @NotEmpty @Size(max = 50) @Email String email,
+  public Admin(int adminID, @NotEmpty @Size(max = 50) @Email String email,
       @NotEmpty @Size(max = 50) String firstName, @NotEmpty @Size(max = 50) String lastName,
       boolean accountStatus) {
     super();
@@ -76,11 +74,11 @@ public class Admin {
     this.accountStatus = accountStatus;
   }
 
-  public UUID getAdminID() {
+  public int getAdminID() {
     return adminID;
   }
 
-  public void setAdminID(UUID adminID) {
+  public void setAdminID(int adminID) {
     this.adminID = adminID;
   }
 
@@ -121,7 +119,7 @@ public class Admin {
     final int prime = 31;
     int result = 1;
     result = prime * result + (accountStatus ? 1231 : 1237);
-    result = prime * result + ((adminID == null) ? 0 : adminID.hashCode());
+    result = prime * result + adminID;
     result = prime * result + ((email == null) ? 0 : email.hashCode());
     result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
     result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
@@ -143,11 +141,7 @@ public class Admin {
     if (accountStatus != other.accountStatus) {
       return false;
     }
-    if (adminID == null) {
-      if (other.adminID != null) {
-        return false;
-      }
-    } else if (!adminID.equals(other.adminID)) {
+    if (adminID != other.adminID) {
       return false;
     }
     if (email == null) {
@@ -179,6 +173,5 @@ public class Admin {
     return "Admin [adminID=" + adminID + ", email=" + email + ", firstName=" + firstName
         + ", lastName=" + lastName + ", accountStatus=" + accountStatus + "]";
   }
-
 
 }
