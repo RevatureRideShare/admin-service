@@ -20,6 +20,7 @@
 		<spring-cloud.version>Hoxton.RC2</spring-cloud.version>
 		<sonar.java.checkstyle.reportPaths>./target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
 		<sonar.coverage.jacoco.xmlReportPaths>./target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+		<sonar.junit.reportPaths>./target/surefire-reports/TEST-com.revature.adim-ServiceApplicationTests.xml</sonar.junit.reportPaths>
 	</properties>
 
 	<dependencies>
