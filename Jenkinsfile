@@ -42,6 +42,11 @@ pipeline {
             }
         }
 
+        stage('Test'){
+            steps{
+                sh 'mvn test'
+            }
+        }
         
        	stage('Discovery and cloud-config setup'){
 			steps{
