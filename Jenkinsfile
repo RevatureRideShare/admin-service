@@ -127,6 +127,7 @@ pipeline {
             steps {
                 script{
                     if(env.BRANCH_NAME == BRANCH ){
+                        echo "Deploying to PCF"
                         withCredentials([[$class  : 'UsernamePasswordMultiBinding',
                                   credentialsId   : 'PCF_LOGIN',
                                   usernameVariable: 'USERNAME',
