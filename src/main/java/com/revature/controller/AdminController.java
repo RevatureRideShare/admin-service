@@ -1,5 +1,8 @@
 package com.revature.controller;
 
+import static com.revature.util.LoggerUtil.trace;
+import static com.revature.util.LoggerUtil.warn;
+
 import com.revature.bean.Admin;
 import com.revature.service.AdminService;
 
@@ -13,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Roberto Rodriguez
  */
 @RestController
-@CrossOrigin
 public class AdminController {
   private AdminService adminService;
 
@@ -36,6 +37,7 @@ public class AdminController {
   public void setAdminService(AdminService adminService) {
     this.adminService = adminService;
   }
+
 
   /**
    * This method is a RESTful endpoint that allows the creation of an admin. It returns a
@@ -49,20 +51,26 @@ public class AdminController {
    */
   @PostMapping("/admin")
   public ResponseEntity<?> createAdmin(@RequestBody(required = false) Admin admin) {
+    trace("Inside AdminController's POST /admin endpoint, trying to create " + admin);
+
     Admin newAdmin;
     Map<String, Object> error = new HashMap<>();
 
     try {
       newAdmin = adminService.createAdmin(admin);
+      trace(admin + " successfully created");
       return new ResponseEntity<>(newAdmin, HttpStatus.CREATED);
     } catch (ConstraintViolationException c) {
       error.put("message", c.getMessage());
+      warn(admin + " causing ConstraintViolationException");
       return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     } catch (DuplicateKeyException d) {
       error.put("message", d.getMessage());
+      warn(admin + " causing DuplicateKeyException");
       return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     } catch (NullPointerException n) {
       error.put("message", "Cannot pass in a null Admin object");
+      warn(admin + " causing NullPointerException");
       return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
   }
@@ -75,8 +83,10 @@ public class AdminController {
    */
   @GetMapping("/admin")
   public ResponseEntity<List<Admin>> getAllAdmins() {
+    trace("Inside AdminController's GET /admin endpoint, trying to get all admins");
     List<Admin> allAdmins = adminService.getAllAdmins();
 
+    trace("Successfully returning all admins in database");
     return new ResponseEntity<>(allAdmins, HttpStatus.OK);
   }
 
@@ -89,11 +99,15 @@ public class AdminController {
    */
   @GetMapping("/admin/{email}")
   public ResponseEntity<?> getAdminByEmail(@PathVariable("email") String email) {
+    trace("Inside AdminController's GET /admin/{email} endpoint, trying admin with email of "
+        + email);
     Admin admin = adminService.getAdminByEmail(email);
 
     if (admin != null) {
+      trace("Successfully returning " + admin + " in database");
       return new ResponseEntity<>(admin, HttpStatus.OK);
     } else {
+      warn("Admin with email " + email + " is not in database");
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
   }

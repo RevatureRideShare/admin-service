@@ -1,5 +1,8 @@
 package com.revature.service;
 
+import static com.revature.util.LoggerUtil.trace;
+import static com.revature.util.LoggerUtil.warn;
+
 import com.revature.bean.Admin;
 import com.revature.exception.DeleteNonexistentException;
 import com.revature.exception.UpdateNonexistentException;
@@ -41,17 +44,22 @@ public class AdminServiceImpl implements AdminService {
    */
   @Override
   public Admin createAdmin(Admin admin) throws NullPointerException {
+    trace("Inside AdminServiceImpl's createAdmin method with admin " + admin);
     if (getAdminByID(admin.getAdminID()).isPresent()) {
+      trace("Admin is causing a DuplicateKeyException");
       throw new DuplicateKeyException("Object already exists in database");
     } else {
       try {
+        trace("Successfully creating admin " + admin);
         return adminRepo.save(admin);
       } catch (TransactionSystemException t) {
         Throwable myT = t.getCause().getCause();
 
         if (myT instanceof ConstraintViolationException) {
+          warn("Admin is throwing ConstraintViolationException");
           throw ((ConstraintViolationException) myT);
         }
+        warn("Admin is throwing another type of TransactionSystemException");
         throw t;
       }
     }
@@ -65,9 +73,12 @@ public class AdminServiceImpl implements AdminService {
    */
   @Override
   public void deleteAdmin(Admin admin) throws NullPointerException {
+    trace("Inside AdminServiceImpl's deleteAdmin method with admin " + admin);
     if (!getAdminByID(admin.getAdminID()).isPresent()) {
+      warn("Admin is throwing a DeleteNonExistentException");
       throw new DeleteNonexistentException(admin + " does not exist and cannot be deleted");
     } else {
+      warn("Admin " + admin + " is successfully being deleted");
       adminRepo.delete(admin);
     }
   }
@@ -81,17 +92,22 @@ public class AdminServiceImpl implements AdminService {
    */
   @Override
   public Admin updateAdmin(Admin admin) throws NullPointerException {
+    trace("Inside AdminServiceImpl's updateAdmin with admin " + admin);
     if (!getAdminByID(admin.getAdminID()).isPresent()) {
+      warn("Admin is throwing an UpdateNonexistentException");
       throw new UpdateNonexistentException(admin + " does not exist and cannot be updated");
     } else {
       try {
+        trace("Admin " + admin + " is successfully being updated");
         return adminRepo.save(admin);
       } catch (TransactionSystemException t) {
         Throwable myT = t.getCause().getCause();
 
         if (myT instanceof ConstraintViolationException) {
+          warn("Admin is throwing a ConstraintViolationException");
           throw ((ConstraintViolationException) myT);
         }
+        warn("Admin is throwing another type of TransactionSystemException");
         throw t;
       }
     }
@@ -104,6 +120,8 @@ public class AdminServiceImpl implements AdminService {
    */
   @Override
   public Optional<Admin> getAdminByID(int adminID) {
+    trace("Inside AdminServiceImpl's getAdminByID with admin ID of " + adminID);
+    trace("Admin is: " + adminRepo.findById(adminID));
     return adminRepo.findById(adminID);
   }
 
@@ -112,6 +130,8 @@ public class AdminServiceImpl implements AdminService {
    */
   @Override
   public List<Admin> getAllAdmins() {
+    trace("Inside AdminServiceImpl's getAllAdmins in the database");
+    trace("Admin list is: " + adminRepo.findAll());
     return adminRepo.findAll();
   }
 
@@ -122,6 +142,8 @@ public class AdminServiceImpl implements AdminService {
    */
   @Override
   public Admin getAdminByEmail(String email) {
+    trace("Inside AdminServicEImpl's getAdminByEmail with email " + email);
+    trace("Admin is: " + adminRepo.findByEmail(email));
     return adminRepo.findByEmail(email);
   }
 }
