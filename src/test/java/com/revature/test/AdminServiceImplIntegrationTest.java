@@ -220,4 +220,6 @@ class AdminServiceImplIntegrationTest {
   void testCreateGetAdminByEmail() {
     assertEquals(adminServiceImpl.getAdminByEmail(existingAdmin.getEmail()), existingAdmin);
   }
+
+
 }
