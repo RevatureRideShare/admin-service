@@ -102,21 +102,21 @@ pipeline {
         //     }
         // }
         
-        stage ('Quality Gate') {
-  			steps{
-                script{ // Hard code the Analysis URL sent to Slack 
-                        // TODO: find the official url via sonar plugin
-                    def urlComponents = env.JOB_NAME.split("/")
-                    def urlJobName = urlComponents[0]
-                    def urlSonarCloudLink = "https://sonarcloud.io/dashboard?id=RevatureRideShare_" + urlJobName
-                    slackSend message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) " +
-                    "View the SonarCloud analysis - " + urlSonarCloudLink
-                } 
-  				timeout(time: 1, unit: 'MINUTES'){
-  					waitForQualityGate abortPipeline: true
-  				}
-  			}
-  		}
+        // stage ('Quality Gate') {
+  		// 	steps{
+        //         script{ // Hard code the Analysis URL sent to Slack 
+        //                 // TODO: find the official url via sonar plugin
+        //             def urlComponents = env.JOB_NAME.split("/")
+        //             def urlJobName = urlComponents[0]
+        //             def urlSonarCloudLink = "https://sonarcloud.io/dashboard?id=RevatureRideShare_" + urlJobName
+        //             slackSend message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>) " +
+        //             "View the SonarCloud analysis - " + urlSonarCloudLink
+        //         } 
+  		// 		timeout(time: 1, unit: 'MINUTES'){
+  		// 			waitForQualityGate abortPipeline: true
+  		// 		}
+  		// 	}
+  		// }
 
         stage ('Deploy') {
             steps {
