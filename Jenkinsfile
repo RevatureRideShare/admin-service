@@ -42,21 +42,21 @@ pipeline {
             }
         }
 
-        stage('Test'){
-            steps{
-                sh 'mvn surefire:test'
-            }
-        }
+        // stage('Test'){
+        //     steps{
+        //         sh 'mvn surefire:test'
+        //     }
+        // }
         
-       	stage('Discovery and cloud-config setup'){
-			steps{
-				//sh 'wget http://rideshare-client.s3.amazonaws.com/jars/EurekaExample-0.0.1-SNAPSHOT.jar'
-			    //sh 'wget http://rideshare-client.s3.amazonaws.com/jars/cloud-config-server-0.0.1-SNAPSHOT.jar'
-			    //sh 'java -jar ~/EurekaExample-0.0.1-SNAPSHOT.jar --httpPort="8761"'			    
-			    //sh 'java -jar ~/cloud-config-server-0.0.1-SNAPSHOT.jar --httpPort="8888"'
-                echo 'hello world'
-			    }
-	    }
+       	// stage('Discovery and cloud-config setup'){
+		// 	steps{
+		// 		//sh 'wget http://rideshare-client.s3.amazonaws.com/jars/EurekaExample-0.0.1-SNAPSHOT.jar'
+		// 	    //sh 'wget http://rideshare-client.s3.amazonaws.com/jars/cloud-config-server-0.0.1-SNAPSHOT.jar'
+		// 	    //sh 'java -jar ~/EurekaExample-0.0.1-SNAPSHOT.jar --httpPort="8761"'			    
+		// 	    //sh 'java -jar ~/cloud-config-server-0.0.1-SNAPSHOT.jar --httpPort="8888"'
+        //         echo 'hello world'
+		// 	    }
+	    // }
 
         stage('Checkstyle') { // Code smells
             steps {
