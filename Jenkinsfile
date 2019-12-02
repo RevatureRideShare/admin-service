@@ -18,7 +18,7 @@ pipeline {
         SONAR_SCANNER_OPTS="-server" 
         ORG="RevatureRideShare"
         REPO="admin-service"
-        BRANCH="chore/6-jenkinsfile"      
+        BRANCH="master"      
     }
 
     stages {
@@ -128,7 +128,7 @@ pipeline {
                 script{
                     //echo "env.BRANCH_NAME: " + env.BRANCH_NAME 
                     //echo "BRANCH: " + BRANCH
-                    //if(env.BRANCH_NAME == BRANCH ){
+                    if(env.BRANCH_NAME == BRANCH ){
                         echo "Deploying to PCF"
                         withCredentials([[$class  : 'UsernamePasswordMultiBinding',
                                   credentialsId   : 'PCF_LOGIN',
@@ -141,7 +141,7 @@ pipeline {
                         sh 'cf push'
                         
                         }
-                    //}   
+                    }   
                 }
             }
         }
