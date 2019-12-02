@@ -1,29 +1,13 @@
 package com.revature.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import com.revature.bean.Admin;
-import com.revature.exception.DeleteNonexistentException;
-import com.revature.exception.UpdateNonexistentException;
-import com.revature.service.AdminServiceImpl;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.ConstraintViolationException;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.test.context.jdbc.Sql;
+import com.revature.bean.Admin;
+import com.revature.service.AdminServiceImpl;
 
 @SpringBootTest
 class AdminServiceImplIntegrationTest {
@@ -46,7 +30,7 @@ class AdminServiceImplIntegrationTest {
 
   @Autowired
   public void setAdminServiceImpl(AdminServiceImpl adminServiceImpl) {
-    /*
+
     this.adminServiceImpl = adminServiceImpl;
   }
 
@@ -86,140 +70,93 @@ class AdminServiceImplIntegrationTest {
   void tearDown() throws Exception {
 
   }
-
-  @Test
-  @Sql("admin-script.sql")
-  void testGetExistingAdminById() {
-    assertEquals(adminServiceImpl.getAdminByID(existingAdmin.getAdminID()),
-        Optional.of(existingAdmin));
-  }
-
-  @Test
-  @Sql("admin-script.sql")
-  void testGetAllTrainingLocation() {
-    List<Admin> existingAdminList = new ArrayList<>();
-    existingAdminList.add(existingAdmin);
-    existingAdminList.add(updatedAdmin);
-    assertEquals(adminServiceImpl.getAllAdmins(), existingAdminList);
-
-    System.out.println(adminServiceImpl.getAllAdmins());
-  }
-
-  @Test
-  @Sql("admin-script.sql")
-  void testCreateNewAdmin() {
-    Admin extraNewAdmin = adminServiceImpl.createAdmin(newAdmin);
-    assertEquals(Optional.of(extraNewAdmin),
-        adminServiceImpl.getAdminByID(extraNewAdmin.getAdminID()));
-  }
-
-  @Test
-  @Sql("admin-script.sql")
-  void testCreateExistingAdmin() {
-    assertThrows(DuplicateKeyException.class, () -> {
-      adminServiceImpl.createAdmin(existingAdmin);
-    });
-  }
-
-  @Test
-  void testCreateNullAdmin() {
-    assertThrows(NullPointerException.class, () -> {
-      adminServiceImpl.createAdmin(nullAdmin);
-    });
-  }
-
-  @Test
-  @Sql("admin-script.sql")
-  void testDeleteExistingAdmin() {
-    adminServiceImpl.deleteAdmin(existingAdmin);
-    assertEquals(adminServiceImpl.getAdminByID(existingAdmin.getAdminID()), Optional.empty());
-  }
-
-  @Test
-  void testDeleteNonExistingAdmin() {
-    assertThrows(DeleteNonexistentException.class, () -> {
-      adminServiceImpl.deleteAdmin(nonExistingAdmin);
-    });
-  }
-
-  @Test
-  @Sql("admin-script.sql")
-  void testUpdateExistingAdmin() {
-    System.out.println(
-        "Current state of updatedAdmin" + adminServiceImpl.getAdminByID(updatedAdmin.getAdminID()));
-    adminServiceImpl.updateAdmin(changedAdmin);
-    assertEquals(adminServiceImpl.getAdminByID(changedAdmin.getAdminID()),
-        Optional.of(changedAdmin));
-  }
-
-  @Test
-  void testUpdateNonExistingAdmin() {
-    assertThrows(UpdateNonexistentException.class, () -> {
-      adminServiceImpl.updateAdmin(nonExistingAdmin);
-    });
-  }
-
-  @Test
-  void testCreateBadFormatEmptyEmailAdmin() {
-    assertThrows(ConstraintViolationException.class, () -> {
-      adminServiceImpl.createAdmin(badFormatEmptyEmailAdmin);
-    });
-  }
-
-  @Test
-  void testCreateBadFormatMaxSizeEmailAdmin() {
-    assertThrows(ConstraintViolationException.class, () -> {
-      adminServiceImpl.createAdmin(badFormatMaxSizeEmailAdmin);
-    });
-  }
-
-  @Test
-  void testCreateBadFormatNotAnEmailAdmin() {
-    assertThrows(ConstraintViolationException.class, () -> {
-      adminServiceImpl.createAdmin(badFormatNotEmailAdmin);
-    });
-  }
-
-  @Test
-  void testCreateBadFormatEmptyFirstNameAdmin() {
-    assertThrows(ConstraintViolationException.class, () -> {
-      adminServiceImpl.createAdmin(badFormatEmptyFirstNameAdmin);
-    });
-  }
-
-  @Test
-  void testCreateBadFormatMaxSizeFirstNameAdmin() {
-    assertThrows(ConstraintViolationException.class, () -> {
-      adminServiceImpl.createAdmin(badFormatMaxSizeFirstNameAdmin);
-    });
-  }
-
-  @Test
-  void testCreateBadFormatEmptyLastNameAdmin() {
-    assertThrows(ConstraintViolationException.class, () -> {
-      adminServiceImpl.createAdmin(badFormatEmptyLastNameAdmin);
-    });
-  }
-
-  @Test
-  void testCreateBadFormatMaxSizeLastNameAdmin() {
-    assertThrows(ConstraintViolationException.class, () -> {
-      adminServiceImpl.createAdmin(badFormatMaxSizeLastNameAdmin);
-    });
-  }
-
-  @Test
-  @Sql("admin-script.sql")
-  void testCreateNewAdminWithSameEmail() {
-    assertThrows(DataIntegrityViolationException.class, () -> {
-      adminServiceImpl.createAdmin(newAdminWithExistingEmail);
-    });
-  }
-
-  @Test
-  @Sql("admin-script.sql")
-  void testCreateGetAdminByEmail() {
-    assertEquals(adminServiceImpl.getAdminByEmail(existingAdmin.getEmail()), existingAdmin);
-  }
-  */
+  /*
+   * @Test
+   * 
+   * @Sql("admin-script.sql") void testGetExistingAdminById() {
+   * assertEquals(adminServiceImpl.getAdminByID(existingAdmin.getAdminID()),
+   * Optional.of(existingAdmin)); }
+   * 
+   * @Test
+   * 
+   * @Sql("admin-script.sql") void testGetAllTrainingLocation() { List<Admin> existingAdminList =
+   * new ArrayList<>(); existingAdminList.add(existingAdmin); existingAdminList.add(updatedAdmin);
+   * assertEquals(adminServiceImpl.getAllAdmins(), existingAdminList);
+   * 
+   * System.out.println(adminServiceImpl.getAllAdmins()); }
+   * 
+   * @Test
+   * 
+   * @Sql("admin-script.sql") void testCreateNewAdmin() { Admin extraNewAdmin =
+   * adminServiceImpl.createAdmin(newAdmin); assertEquals(Optional.of(extraNewAdmin),
+   * adminServiceImpl.getAdminByID(extraNewAdmin.getAdminID())); }
+   * 
+   * @Test
+   * 
+   * @Sql("admin-script.sql") void testCreateExistingAdmin() {
+   * assertThrows(DuplicateKeyException.class, () -> { adminServiceImpl.createAdmin(existingAdmin);
+   * }); }
+   * 
+   * @Test void testCreateNullAdmin() { assertThrows(NullPointerException.class, () -> {
+   * adminServiceImpl.createAdmin(nullAdmin); }); }
+   * 
+   * @Test
+   * 
+   * @Sql("admin-script.sql") void testDeleteExistingAdmin() {
+   * adminServiceImpl.deleteAdmin(existingAdmin);
+   * assertEquals(adminServiceImpl.getAdminByID(existingAdmin.getAdminID()), Optional.empty()); }
+   * 
+   * @Test void testDeleteNonExistingAdmin() { assertThrows(DeleteNonexistentException.class, () ->
+   * { adminServiceImpl.deleteAdmin(nonExistingAdmin); }); }
+   * 
+   * @Test
+   * 
+   * @Sql("admin-script.sql") void testUpdateExistingAdmin() { System.out.println(
+   * "Current state of updatedAdmin" + adminServiceImpl.getAdminByID(updatedAdmin.getAdminID()));
+   * adminServiceImpl.updateAdmin(changedAdmin);
+   * assertEquals(adminServiceImpl.getAdminByID(changedAdmin.getAdminID()),
+   * Optional.of(changedAdmin)); }
+   * 
+   * @Test void testUpdateNonExistingAdmin() { assertThrows(UpdateNonexistentException.class, () ->
+   * { adminServiceImpl.updateAdmin(nonExistingAdmin); }); }
+   * 
+   * @Test void testCreateBadFormatEmptyEmailAdmin() {
+   * assertThrows(ConstraintViolationException.class, () -> {
+   * adminServiceImpl.createAdmin(badFormatEmptyEmailAdmin); }); }
+   * 
+   * @Test void testCreateBadFormatMaxSizeEmailAdmin() {
+   * assertThrows(ConstraintViolationException.class, () -> {
+   * adminServiceImpl.createAdmin(badFormatMaxSizeEmailAdmin); }); }
+   * 
+   * @Test void testCreateBadFormatNotAnEmailAdmin() {
+   * assertThrows(ConstraintViolationException.class, () -> {
+   * adminServiceImpl.createAdmin(badFormatNotEmailAdmin); }); }
+   * 
+   * @Test void testCreateBadFormatEmptyFirstNameAdmin() {
+   * assertThrows(ConstraintViolationException.class, () -> {
+   * adminServiceImpl.createAdmin(badFormatEmptyFirstNameAdmin); }); }
+   * 
+   * @Test void testCreateBadFormatMaxSizeFirstNameAdmin() {
+   * assertThrows(ConstraintViolationException.class, () -> {
+   * adminServiceImpl.createAdmin(badFormatMaxSizeFirstNameAdmin); }); }
+   * 
+   * @Test void testCreateBadFormatEmptyLastNameAdmin() {
+   * assertThrows(ConstraintViolationException.class, () -> {
+   * adminServiceImpl.createAdmin(badFormatEmptyLastNameAdmin); }); }
+   * 
+   * @Test void testCreateBadFormatMaxSizeLastNameAdmin() {
+   * assertThrows(ConstraintViolationException.class, () -> {
+   * adminServiceImpl.createAdmin(badFormatMaxSizeLastNameAdmin); }); }
+   * 
+   * @Test
+   * 
+   * @Sql("admin-script.sql") void testCreateNewAdminWithSameEmail() {
+   * assertThrows(DataIntegrityViolationException.class, () -> {
+   * adminServiceImpl.createAdmin(newAdminWithExistingEmail); }); }
+   * 
+   * @Test
+   * 
+   * @Sql("admin-script.sql") void testCreateGetAdminByEmail() {
+   * assertEquals(adminServiceImpl.getAdminByEmail(existingAdmin.getEmail()), existingAdmin); }
+   */
 }
