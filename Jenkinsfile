@@ -41,16 +41,16 @@ pipeline {
                 sh 'mvn -U -B -DskipTests clean package'
             }
         }
+
         
-        
-       	stage('Discovery and cloud-config setup'){
-			steps{
+       	//stage('Discovery and cloud-config setup'){
+			//steps{
 				//sh 'wget http://rideshare-client.s3.amazonaws.com/jars/EurekaExample-0.0.1-SNAPSHOT.jar'
 			    //sh 'wget http://rideshare-client.s3.amazonaws.com/jars/cloud-config-server-0.0.1-SNAPSHOT.jar'
 			    //sh 'java -jar ~/EurekaExample-0.0.1-SNAPSHOT.jar --httpPort="8761"'			    
 			    //sh 'java -jar ~/cloud-config-server-0.0.1-SNAPSHOT.jar --httpPort="8888"'
-			    }
-	    }
+			    //}
+	    //}
 
         stage('Checkstyle') { // Code smells
             steps {
