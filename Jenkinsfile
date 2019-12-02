@@ -72,35 +72,35 @@ pipeline {
         //     }
   		// }
 	
-        stage('Sonar Analysis') { 
-            // performs a sonar analysis and sends code to sonarcloud
-            steps {
-                script{
-                    if (env.CHANGE_ID) {
-                        echo 'Pull Request Detected...'
+        // stage('Sonar Analysis') { 
+        //     // performs a sonar analysis and sends code to sonarcloud
+        //     steps {
+        //         script{
+        //             if (env.CHANGE_ID) {
+        //                 echo 'Pull Request Detected...'
 
-                        withSonarQubeEnv(credentialsId: 'b44ffadc-08d5-11ea-8d71-362b9e155667', installationName:'SonarCloud'){                           
-                            sh """
-                             sonar-scanner \
-                                -Dsonar.login=${env.SONAR_LOGIN_TOKEN} \
-                                -Dsonar.pullrequest.base=${env.CHANGE_TARGET} \
-                                -Dsonar.pullrequest.provider=GitHub \
-                                -Dsonar.pullrequest.key=${env.CHANGE_ID} \
-                                -Dsonar.pullrequest.github.repository=${env.ORG}/${env.REPO} \
-                                -Dsonar.pullrequest.branch=${env.CHANGE_BRANCH}
-                            """
-                        }
-                    } else {
-                            withSonarQubeEnv(credentialsId: 'b44ffadc-08d5-11ea-8d71-362b9e155667', installationName:'SonarCloud'){
-                                sh """
-                                sonar-scanner \
-                                -Dsonar.login=${env.SONAR_LOGIN_TOKEN} \
-                                """
-                            }
-                    }   
-                }
-            }
-        }
+        //                 withSonarQubeEnv(credentialsId: 'b44ffadc-08d5-11ea-8d71-362b9e155667', installationName:'SonarCloud'){                           
+        //                     sh """
+        //                      sonar-scanner \
+        //                         -Dsonar.login=${env.SONAR_LOGIN_TOKEN} \
+        //                         -Dsonar.pullrequest.base=${env.CHANGE_TARGET} \
+        //                         -Dsonar.pullrequest.provider=GitHub \
+        //                         -Dsonar.pullrequest.key=${env.CHANGE_ID} \
+        //                         -Dsonar.pullrequest.github.repository=${env.ORG}/${env.REPO} \
+        //                         -Dsonar.pullrequest.branch=${env.CHANGE_BRANCH}
+        //                     """
+        //                 }
+        //             } else {
+        //                     withSonarQubeEnv(credentialsId: 'b44ffadc-08d5-11ea-8d71-362b9e155667', installationName:'SonarCloud'){
+        //                         sh """
+        //                         sonar-scanner \
+        //                         -Dsonar.login=${env.SONAR_LOGIN_TOKEN} \
+        //                         """
+        //                     }
+        //             }   
+        //         }
+        //     }
+        // }
         
         stage ('Quality Gate') {
   			steps{
