@@ -42,6 +42,7 @@ pipeline {
             }
         }
         
+        
        	stage('Discovery and cloud-config setup'){
 			steps{
 				//sh 'wget http://rideshare-client.s3.amazonaws.com/jars/EurekaExample-0.0.1-SNAPSHOT.jar'
