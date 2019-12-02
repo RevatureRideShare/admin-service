@@ -126,9 +126,9 @@ pipeline {
         stage ('Deploy') {
             steps {
                 script{
-                    echo "env.BRANCH_NAME: " + env.BRANCH_NAME 
-                    echo "BRANCH: " + BRANCH
-                    if(env.BRANCH_NAME == BRANCH ){
+                    //echo "env.BRANCH_NAME: " + env.BRANCH_NAME 
+                    //echo "BRANCH: " + BRANCH
+                    //if(env.BRANCH_NAME == BRANCH ){
                         echo "Deploying to PCF"
                         withCredentials([[$class  : 'UsernamePasswordMultiBinding',
                                   credentialsId   : 'PCF_LOGIN',
@@ -140,8 +140,8 @@ pipeline {
                         -o "Revature Training" -s development'
                         sh 'cf push'
                         
-                        }
-                    }   
+                    //    }
+                    //}   
                 }
             }
         }
