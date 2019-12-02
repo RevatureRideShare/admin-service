@@ -100,8 +100,6 @@ class AdminServiceImplIntegrationTest {
     existingAdminList.add(existingAdmin);
     existingAdminList.add(updatedAdmin);
     assertEquals(adminServiceImpl.getAllAdmins(), existingAdminList);
-
-    System.out.println(adminServiceImpl.getAllAdmins());
   }
 
   @Test
@@ -144,8 +142,6 @@ class AdminServiceImplIntegrationTest {
   @Test
   @Sql("admin-script.sql")
   void testUpdateExistingAdmin() {
-    System.out.println(
-        "Current state of updatedAdmin" + adminServiceImpl.getAdminByID(updatedAdmin.getAdminID()));
     adminServiceImpl.updateAdmin(changedAdmin);
     assertEquals(adminServiceImpl.getAdminByID(changedAdmin.getAdminID()),
         Optional.of(changedAdmin));
