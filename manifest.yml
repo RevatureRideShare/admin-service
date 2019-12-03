@@ -1,0 +1,12 @@
+applications:
+- name: rideshare-admin-service
+  instances: 1
+  memory: 2G
+  path: target/AdminService-0.0.1-SNAPSHOT.jar
+  buildpack: http://github.com/cloudfoundry/java-buildpack
+  env:
+    RIDESHARE_1909_GATEWAY_HOST: http://rideshare-discovery.cfapps.io/
+    RIDESHARE_1909_ADMIN_HOST: http://rideshare-admin-service.cfapps.io/
+    RIDESHARE_1909_LOCATION_HOST: http://rideshare-location-service.cfapps.io/
+    RIDESHARE_1909_SECURITY_HOST: http://rideshare-security-service.cfapps.io/
+    RIDESHARE_1909_USER_HOST: http://rideshare-user-service.cfapps.io/

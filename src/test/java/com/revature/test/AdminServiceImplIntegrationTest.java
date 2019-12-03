@@ -2,18 +2,10 @@ package com.revature.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import com.revature.bean.Admin;
-import com.revature.exception.DeleteNonexistentException;
-import com.revature.exception.UpdateNonexistentException;
-import com.revature.service.AdminServiceImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import javax.validation.ConstraintViolationException;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,6 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.jdbc.Sql;
+import com.revature.bean.Admin;
+import com.revature.exception.DeleteNonexistentException;
+import com.revature.exception.UpdateNonexistentException;
+import com.revature.service.AdminServiceImpl;
 
 @SpringBootTest
 class AdminServiceImplIntegrationTest {
