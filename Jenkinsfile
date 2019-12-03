@@ -48,20 +48,19 @@ pipeline {
         //     }
         // }
         
-       	// stage('Discovery and cloud-config setup'){
-		// 	steps{
-		// 		//sh 'wget http://rideshare-client.s3.amazonaws.com/jars/EurekaExample-0.0.1-SNAPSHOT.jar'
-		// 	    //sh 'wget http://rideshare-client.s3.amazonaws.com/jars/cloud-config-server-0.0.1-SNAPSHOT.jar'
-		// 	    //sh 'java -jar ~/EurekaExample-0.0.1-SNAPSHOT.jar --httpPort="8761"'			    
-		// 	    //sh 'java -jar ~/cloud-config-server-0.0.1-SNAPSHOT.jar --httpPort="8888"'
-        //         echo 'hello world'
-		// 	    }
-	    // }
-
         stage('Checkstyle') { // Code smells
             steps {
-                sh 'mvn verify checkstyle:checkstyle'
-            }
+                   script{
+                    try{
+                        sh 'mvn verify checkstyle:checkstyle'
+                       // echo "second ls"
+						//sh 'ls target/surefire-reports'
+                        }catch(err){
+                            echo "Caught: ${err}"
+                            currentBuild.result = 'UNSTABLE'
+                        }
+                	}             
+            	}
         }
         
   		stage ('Jacoco') {
@@ -134,8 +133,8 @@ pipeline {
                                   credentialsId   : 'PCF_LOGIN',
                                   usernameVariable: 'USERNAME',
                                   passwordVariable: 'PASSWORD']]) {
-                        sh 'cf events rideshare-security-service'
-					    sh 'cf logs rideshare-security-service --recent'
+                        sh 'cf events rideshare-admin-service'
+					    sh 'cf logs rideshare-admin-service --recent'
                         sh 'cf login -a http://api.run.pivotal.io -u $USERNAME -p $PASSWORD \
                         -o "Revature Training" -s development'
                         sh 'cf push'
